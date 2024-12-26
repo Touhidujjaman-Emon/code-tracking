@@ -1,17 +1,11 @@
 import { useState } from "react";
 
 export default function App() {
-  const [items, setItems] = useState([]);
-
-  function handleAddItem(item) {
-    setItems((items) => [...items, item]);
-  }
-
   return (
     <div className="app">
       <Logo />
-      <Form onAddItem={handleAddItem} />
-      <PackingList items={items} />
+      <Form />
+      <PackingList />
       <Stats />
     </div>
   );
@@ -26,7 +20,7 @@ const initialItems = [
 function Logo() {
   return <h1>🌴 Far Away 💼</h1>;
 }
-function Form({ onAddItem }) {
+function Form() {
   const [description, setDescription] = useState("");
   const [quantity, setquantity] = useState(1);
 
@@ -40,8 +34,6 @@ function Form({ onAddItem }) {
       packed: false,
       id: Date.now(),
     };
-
-    onAddItem(newItem);
 
     setDescription("");
     setquantity("");
@@ -71,11 +63,11 @@ function Form({ onAddItem }) {
     </form>
   );
 }
-function PackingList({ items }) {
+function PackingList() {
   return (
     <div className="list">
       <ul>
-        {items.map((item) => (
+        {initialItems.map((item) => (
           <Item item={item} key={item.id} />
         ))}
       </ul>
